@@ -38,7 +38,7 @@ Have a look at how to use the module in the file '$PROJECT_ROOT/online_objdet_ex
 2. Initialize the online detector using the 'faster_rcnn_online_init' or 'yolo_online_init' member functions. This allocates GPU memory and holds it so that we can run the detector without re-initializing the deep networks every time.
 3. Use the 'faster_rcnn_online' and 'yolo_online' member functions to process frames read in the OpenCV format.
 
-Edit the simple script to add your own images to process (give absolute image paths to the 'imagefiles' list)
+Edit the simple script to add your own images to process (give absolute image paths to the 'imagefiles' list in the )
 
 Run this script using:
 '''
@@ -50,7 +50,8 @@ This just uses the basic yolov1 network and the faster-rcnn with ZF backbone. In
 
 ## Training Models from Scratch and Testing them out
 
-We are just going to be training simple models over the 20 classes of the PASCAL VOC dataset. The basic yolov1 with 20 classes and faster-rcnn with a ZF backbone.
+We are just going to be training simple models over a single class of the PASCAL VOC dataset. The basic yolov1 and faster-rcnn with a ZF backbone. The reason we are not training over all classes is that it takes a lot more time, and we'd like to do a simple experiment to understand how to use this codebase. Additional classes can be added for the training and testing procedures by following [this](EDITING_LOWER_LEVEL_CONFIGS.md). It would probably help if the parameters for training are adjusted to make it converge faster. Otherwise starting training with a pre-trained model (like ImageNet models) is highly recommended and has shown the best results. But I do recommend using the basic getting started files to get into the more complicated matter.
+
 First download the data [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/#data).
 Go to the development kit section and click on 'Download the training/validation data (2GB tar file)'
 Unzip it and keep it somewhere (separate from the code would be neater). You should get a folder called 'VOCdevkit' with the following dir structure:
@@ -77,10 +78,10 @@ Now move on to the '[faster_rcnn]' section.
 
 ### faster - rcnn
 
-Set 'use_faster_rcnn' to 'True'. This should be done when we want to run 'train' or 'test' experiments with datasets, it is not required for the online detector (irrelevant in that case). Let's call our experiment 'experimentXY', so that the outputs are formatted neatly. Mention where you want the outputs using 'output_directory'. You can use anything for 'dataset_type' (don't use 'kitti', it is a special keyword - refer to [this](USAGE_HELP.md)). Set the 'train_mode' and 'test_mode' to 1 to include all the data in the annotations (this is only relevant when using 'kitti').
+Set 'use_faster_rcnn' to 'True'. This should be done when we want to run 'train' or 'test' experiments with datasets, it is not required for the online detector (irrelevant in that case). Let's call our experiment 'experimentxy', so that the outputs are formatted neatly. Mention where you want the outputs using 'output_directory'. You can use anything for 'dataset_type' (don't use 'kitti', it is a special keyword - refer to [this](USAGE_HELP.md)). Set the 'train_mode' and 'test_mode' to 1 to include all the data in the annotations (this is only relevant when using 'kitti').
 '''
 use_faster_rcnn: True
-experiment_name: experimentXY
+experiment_name: experimentxy
 output_directory: $YOUR_OUTPUT_DIR/pyfrcnn
 dataset_type: pascalvoc2012
 
@@ -121,7 +122,7 @@ use_trained_weights_test: True
 weights_file_test: IDONTHAVETHISFILE
 '''
 
-We are going to use the end to end (joint) method of training. So we use the corresponding prototxt files for a ZF network end to end with the number of classes as 20. A list of class names should also be provided under 'class_names_file' for whatever categories need to be trained. You can leave out certain names here and data will be taken accordingly, however you must always use the same names file with the same proto files (train and test), same cfg file and weight files.
+We are going to use the end to end (joint) method of training. So we use the corresponding prototxt files for a ZF network end to end with the number of classes as 1 (car). A list of class names should also be provided under 'class_names_file' for whatever categories need to be trained. You can leave out certain names here and data will be taken accordingly, however you must always use the same names file with the same proto files (train and test), same cfg file and weight files.
 
 The files for this experiment have been provided in '$PROJECT_ROOT/config_data/train_test_exp/py_faster_rcnn_configs' so just add those along to the correct places as shown:
 '''
@@ -139,7 +140,7 @@ Now move on to the '[yolo]' section.
 Most of the settings are common to that of faster - rcnn:
 '''
 use_yolo: True
-experiment_name: experimentXY
+experiment_name: experimentxy
 output_directory: $YOUR_OUTPUT_DIR/darknet
 dataset_type: pascalvoc2012
 
@@ -157,7 +158,7 @@ train_data_fraction: 0.8
 num_repetitions: 10			//irrelevant if 'use_validation_experiments: False'
 
 use07metric: False
-num_iterations: 100000
+num_iterations: 150000
 network_name: darknet24
 output_model_prefix = yolov1_voc2012
 
@@ -170,7 +171,7 @@ weights_file_test: IDONTHAVETHISFILE
 
 Again here set the number of iterations using 'num_iterations', batch size and other such training related parameters can be adjusted in the 'network_cfg_file' file. 'network_name' is not actually used right now, but you can add it for your reference.
 
-Now we are going to use yolov1 for training. So we use the corresponding 'network_cfg_file' with the number of classes as 20. A list of class names should also be provided under 'class_names_file' for whatever categories need to be trained. You can leave out certain names here and data will be taken accordingly, however you must always use the same names file with the same 'network_cfg_file' and weight files.
+Now we are going to use yolov1 for training. So we use the corresponding 'network_cfg_file' with the number of classes as 1 (car). A list of class names should also be provided under 'class_names_file' for whatever categories need to be trained. You can leave out certain names here and data will be taken accordingly, however you must always use the same names file with the same 'network_cfg_file' and weight files.
 
 The config files for this experiment have been provided in '$PROJECT_ROOT/config_data/train_test_exp/yolo_configs' so just add those along to the correct places as shown:
 '''
@@ -184,3 +185,5 @@ python online_obdet_example.py
 '''
 
 After it's done, check out the results where you specified the output folder. There will be a 'models' folder which was generated during training and a 'results' folder which was generated using the model from the 'models' folder. In the results folder you have detection files in the standard PASCAL VOC test output (i.e. for submission). Also if you set 'evaluate' to 'True' and you had the annotations for the 'test_split', then you will get a file containing the average precision for each class and the mean AP as well.
+
+You can try using the obtained models with the online detector to see some live results from your images (in the same way you used the downloaded models in the first part of this doc). Do not expect great results! For better results try training over an ImageNet pre-trained model.
