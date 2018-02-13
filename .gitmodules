@@ -1,3 +1,6 @@
 [submodule "dl_algos/py_faster_rcnn"]
 	path = dl_algos/py_faster_rcnn
 	url = https://github.com/amitfishy/py_faster_rcnn
+[submodule "dl_algos/darknet"]
+	path = dl_algos/darknet
+	url = https://github.com/amitfishy/darknet
