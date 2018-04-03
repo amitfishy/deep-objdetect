@@ -43,7 +43,8 @@ HOWEVER IF USING SOME PRETRAINED WEIGHTS FILE, ALWAYS MAKE SURE THAT THE .NAMES 
 2. test.prototxt - Edit in 2 places as follows:
 	- Towards the end of the file, find the layer with the name `cls_score` and add (number of classes + 1) to the `num_output` field **[1 place]**
 	- Towards the end of the file, find the layer with the name `bbox_pred` and add (number of classes + 1) x 4 to the `num_output` field **[1 place]**
-3. solver.prototxt - Can be changed for tuning the training settings. This can be left at the default values also.
+3. solver.prototxt - Can be changed for tuning the training settings. This can be left at the default values also. One edit should be made here:
+	- At the top of this file, put the path for the `train.prototxt` file. This path should be from `$PROJECT_ROOT` or a complete path from your root directory.
 4. config.yml - Can be changed for tuning the training and testing settings (like number of rpn proposals to consider etc.). This can be left at the default values also.
 
 You can experiment with the number and kind of layers, it is not very straightforward to explain but easier to understand by examples. If you've read the paper for [faster-rcnn](https://arxiv.org/abs/1506.01497), try to correlate the networks they describe with the meta data in the train.prototxt and test.prototxt and config.yml (you can't really see the list of parameters here, the default settings for it are given in `$PROJECT_ROOT/dl_algos/py_faster_rcnn/lib/fast_rcnn/config.py` - you can affect all these parameters directly through the `config.yml` file). `solver.ptototxt` is useful for setting the training parameters.

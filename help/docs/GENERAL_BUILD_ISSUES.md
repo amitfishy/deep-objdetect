@@ -31,7 +31,15 @@ self_.attr("setup")(bottom, top);
 ```
 Save the file and proceed.
 
-### 3. Erros relating to improperly set environment variables:
+### 3. cannot find -lhdf5 / -lhdf5_hl. - [Issue #156](https://github.com/NVIDIA/DIGITS/issues/156)
+
+This might happen because of a postfix "serial", check `/usr/lib/x86_64-linux-gnu`. If you've installed the hdf5 libraries then you will be able to find `libhdf5_serial.so` and `libhdf5_serial_hl.so` in this folder. The solution is to create a symbolic link to the expected names `libhdf5.so` and `libhdf5_hl.so` as follows:
+```
+sudo ln -s libhdf5_serial.so libhdf5.so
+sudo ln -s libhdf5_serial_hl.so libhdf5_hl.so
+```
+
+### 4. Erros relating to improperly set environment variables:
 
 Some errors may arise due to improperly set environment variables relating to cuda, cudnn, python, nvidia drivers
 
