@@ -1,0 +1,25 @@
+EXP_DIR: faster_rcnn_end2end
+TRAIN:
+  HAS_RPN: True
+  IMS_PER_BATCH: 1
+  BBOX_NORMALIZE_TARGETS_PRECOMPUTED: True
+  RPN_POSITIVE_OVERLAP: 0.7
+  RPN_BATCHSIZE: 256
+  PROPOSAL_METHOD: gt
+  BG_THRESH_LO: 0.0
+  # SCALES:
+  #   - 250
+  #   - 300
+  #   - 350
+  #   - 400
+  # MAX_SIZE: 650
+  #1M means it will not happen - no snapshots
+  SNAPSHOT_ITERS: 1000000
+TEST:
+  HAS_RPN: True
+  # SCALES:
+  #   - 250
+  #   - 300
+  #   - 350
+  #   - 400
+  # MAX_SIZE: 650

@@ -1,9 +1,9 @@
-train_net: "config_data/train_test_exp/py_faster_rcnn_configs/train.prototxt"
+train_net: "config_data/train_test_exp_20_imagenet_init/py_faster_rcnn_configs/train.prototxt"
 
 base_lr: 0.001
 lr_policy: "step"
 gamma: 0.1
-stepsize: 50000
+stepsize: 4000000
 display: 20
 average_loss: 100
 momentum: 0.9
