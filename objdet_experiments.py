@@ -370,7 +370,7 @@ class yolo_module():
 		os.chdir(self.code_directory)
 
 		code_exec_sys = './darknet detector'
-		gpu_sys = '-gpus' + str(self.misc.gpu_id)
+		gpu_sys = '-gpus ' + str(self.misc.gpu_id)
 		net_cfg_sys = '-net_config_file ' + self.network_cfg_file
 		class_names_sys = '-class_names_file ' + self.class_names_file
 		annotations_sys = '-annotation_folder ' + self._yolo_annotation_directory
@@ -416,7 +416,7 @@ class yolo_module():
 		os.chdir(self.code_directory)
 
 		code_exec_sys = './darknet detector'
-		gpu_sys = '-gpus' + str(self.misc.gpu_id)
+		gpu_sys = '-gpus ' + str(self.misc.gpu_id)
 		net_cfg_sys = '-net_config_file ' + self.network_cfg_file
 		class_names_sys = '-class_names_file ' + self.class_names_file
 
@@ -483,7 +483,7 @@ class yolo_module():
 				continue
 			print 'Evaluating Class: `{:s}`'.format(cls_name)
 			filename = os.path.join(output_results_folder, 'comp4_det_{:s}_{:s}.txt'.format(self.test_split, cls_name))
-			rec, prec, ap = general_dataset_eval(self.dataset_type, filename, annopath, imagesetfile, cls_name, self.test_mode, ovthresh=0.7, use_07_metric=self.use07metric)
+			rec, prec, ap = general_dataset_eval(self.dataset_type, filename, annopath, imagesetfile, cls_name, self.test_mode, ovthresh=0.5, use_07_metric=self.use07metric)
 			aps += [ap]
 			print('AP for {} = {:.4f}'.format(cls_name, ap))
 

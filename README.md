@@ -6,14 +6,13 @@ This repository uses modified forks of the [py-faster-rcnn](https://github.com/r
 ## Suggested OS and System Requirements:
 Ubuntu - 16.04 / 14.04  
 Linux in General would probably be fine.  
-NVIDIA 1050/70 works fine(tested) - you would want to have at least 4 GB.  
+NVIDIA 1050/60/70 works fine(tested) - at least 4GB is good practically.  
 
 ## Pre-Installed Packages:
 cuda v9.0 / v9.1  
-cudnn v7.0.5 (get the correct package based on which version of cuda is installed)  
+cudnn v7.0.5 / v7.1.1(get the correct package based on which version of cuda is installed)  
 gcc v5.4 / v5.2  
-g++ v5.4 / v5.2  
-(if you already have different versions of the above packages, you can keep different versions of cuda in parallel and just change the exported version at the time of requirement, g++ and gcc can also be switched easily)
+g++ v5.4 / v5.2
 
 ## Download all the source code properly
 ```
