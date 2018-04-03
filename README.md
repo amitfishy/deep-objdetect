@@ -1,4 +1,4 @@
-# **deep-objdetect**
+# **deep_objdetect**
 A framework for experiments on object detection using the darknet (yolo) and py-faster-rcnn techniques.
 
 This repository uses modified forks of the [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn) and [darknet](https://pjreddie.com/darknet/) implementations. It is intended to provide an interface which is easy to use to do quick experiments with different kinds of deep networks and different kinds of data as well. Just mention the directories in the master config file and run the code. Below are mentioned the basic requirements for getting started, make sure you have all this set up before you proceed with the build. Note that these are configurations which have been built successfully and other configs and setups may or may not work.
@@ -16,11 +16,11 @@ g++ v5.4 / v5.2
 
 ## Download all the source code properly
 ```
-git clone --recursive https://github.com/amitfishy/deep-objdetect
+git clone --recursive https://github.com/amitfishy/deep_objdetect
 ```
 OR if you just cloned the repo the normal way:
 ```
-git clone https://github.com/amitfishy/deep-objdetect
+git clone https://github.com/amitfishy/deep_objdetect
 git submodule update --init --recursive
 ```
 ## Some Other General Requirements for getting a successful build, with required cmd for Ubuntu:
@@ -73,7 +73,7 @@ sudo apt-get install libopenblas-dev
 ```
 
 ## General Information
-Note: `$PROJECT_ROOT` refers to this repository (path to `deep-objdetect` if you haven't changed anything)
+Note: `$PROJECT_ROOT` refers to this repository (path to `deep_objdetect` if you haven't changed anything)
 
 1. After the installation of the basic dependencies is completed, follow the build instructions given [here](help/docs/BUILD_INSTRUCTIONS.md).
 
